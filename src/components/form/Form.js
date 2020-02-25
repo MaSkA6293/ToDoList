@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './Form.css';
 import Input from '../Input/Input';
 import Todolist from '../Todolist/Todolist';
-
-
+import ContextToDo from '../Context';
 
 class Form extends Component {
     constructor(props) {
@@ -22,7 +21,7 @@ class Form extends Component {
         const filterstate = this.state.todoList.filter(item => item.id !== id)
         this.setState({ todoList: filterstate })
     }
-    ToggleToDo = function (id) {
+    ToggleToDo = (id) => {
         const newstate = this.state.todoList.map(item => {
             if (item.id === id) {
                 item.completed = !item.completed
@@ -46,12 +45,14 @@ class Form extends Component {
 
     }
     render() {
+        const input = this.state.input;
+        const todoList = this.state.todoList;
         return (<div className='contaner'>
             <div className='Form col-sm-12'> To Do List</div>
-
-            <Input inputChange={this.Input} addToDo={this.addToDo} inputvalue={this.state.input} />
-            < Todolist todoList={this.state.todoList} onToggle={this.ToggleToDo.bind(this)} Del={this.DeleteitemToDo} />
-
+            <ContextToDo.Provider value={{ todoList, input, addToDo: this.addToDo, Input: this.Input, ToggleToDo: this.ToggleToDo, DeleteitemToDo: this.DeleteitemToDo }}>
+                <Input />
+                < Todolist />
+            </ContextToDo.Provider>
 
         </div>
 

@@ -2,6 +2,9 @@
     margin: auto;
 }
 .finish{
-    text-decoration: line-through;
- 
+    text-decoration: line-through; 
+}
+.endwork{
+    text-align: center;
+    font-size: 2em;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import ContextToDo from '../../Context';
 const styles = {
     input: {
         marginRight: '1rem'
@@ -11,15 +12,20 @@ const styles = {
         marginRight: '10px',
     }
 }
+
 class Todoitem extends Component {
+    static contextType = ContextToDo;
+
     render() {
+        const { DeleteitemToDo, ToggleToDo } = this.context;
+
         return (
             <li className="list-group-item">
                 <span className={(this.props.todo.completed) ? 'finish' : ''} >
-                    <input type='checkbox' checked={this.props.todo.completed} className="checkbox" onChange={() => this.props.Change(this.props.todo.id)} style={styles.input} />
+                    <input type='checkbox' checked={this.props.todo.completed} className="checkbox" onChange={() => ToggleToDo(this.props.todo.id)} style={styles.input} />
                     <strong style={styles.index}>{this.props.index + 1}</strong>
                     {this.props.todo.title}
-                    <button style={styles.btn} className='btn btn-danger' onClick={() => this.props.deleteItem(this.props.todo.id)}>Удалить</button>
+                    <button style={styles.btn} className='btn btn-danger' onClick={() => DeleteitemToDo(this.props.todo.id)}>Удалить</button>
                 </span>
             </li>)
     }
@@ -28,8 +34,7 @@ class Todoitem extends Component {
 Todoitem.propTypes = {
     todo: PropTypes.object.isRequired,
     index: PropTypes.number,
-    Change: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired
+
 }
 
 export default Todoitem;
