@@ -6,4 +6,5 @@ export default React.createContext({
     ToggleToDo: () => { },
     Input: () => { },
     addToDo: () => { },
+    Loading: '',
 })
